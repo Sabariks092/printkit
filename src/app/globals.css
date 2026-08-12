@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  /* Font Family */
-  --font-sans: var(--font-manrope), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* Font Family - Poppins Only */
+  --font-sans: var(--font-poppins), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   /* Primary Brand Red Palette */
-  --color-brand-red: #DF3030;
-  --color-brand-red-hover: #DF3030;
+  --color-brand-red: #CC0000;
+  --color-brand-red-hover: #A80000;
   --color-brand-red-active: #8F0000;
   --color-brand-red-light: #FDECEC;
   --color-brand-red-very-light: #FFF5F5;
@@ -14,7 +14,7 @@
   /* Primary Dark Palette */
   --color-brand-dark: #0E0F08;
 
-  /* Neutral System (Strict Light Theme) */
+  /* Neutral System */
   --color-brand-bg: #FFFFFF;
   --color-brand-offwhite: #F7F7F5;
   --color-brand-surface: #FFFFFF;
@@ -51,7 +51,7 @@
 body {
   background-color: #FFFFFF;
   color: #0E0F08;
-  font-family: var(--font-manrope), sans-serif;
+  font-family: var(--font-poppins), sans-serif;
   letter-spacing: -0.01em;
 }
 
