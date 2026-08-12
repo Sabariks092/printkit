@@ -1,7 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { ShieldCheck, MapPin, Mail, Phone } from "lucide-react";
 
 export function Footer() {
@@ -11,7 +9,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-[#E3E3DE]">
           {/* Col 1: Brand Info */}
           <div className="flex flex-col gap-4 md:col-span-1">
-            <Image
+            <img
               src="/logo.png"
               alt="PrintKit Logo"
               width={160}
@@ -32,11 +30,11 @@ export function Footer() {
               Print Production
             </h4>
             <ul className="flex flex-col gap-2 text-xs text-[#555750]">
-              <li><Link href="#services" className="hover:text-[#CC0000] transition-colors">Commercial Offset Printing</Link></li>
-              <li><Link href="#services" className="hover:text-[#CC0000] transition-colors">Large Format &amp; Banners</Link></li>
-              <li><Link href="#services" className="hover:text-[#CC0000] transition-colors">Custom Packaging &amp; Boxes</Link></li>
-              <li><Link href="#services" className="hover:text-[#CC0000] transition-colors">Specialty Die-Cutting &amp; Foil</Link></li>
-              <li><Link href="#services" className="hover:text-[#CC0000] transition-colors">Digital Short-Run Press</Link></li>
+              <li><a href="#services" className="hover:text-[#CC0000] transition-colors">Commercial Offset Printing</a></li>
+              <li><a href="#services" className="hover:text-[#CC0000] transition-colors">Large Format &amp; Banners</a></li>
+              <li><a href="#services" className="hover:text-[#CC0000] transition-colors">Custom Packaging &amp; Boxes</a></li>
+              <li><a href="#services" className="hover:text-[#CC0000] transition-colors">Specialty Die-Cutting &amp; Foil</a></li>
+              <li><a href="#services" className="hover:text-[#CC0000] transition-colors">Digital Short-Run Press</a></li>
             </ul>
           </div>
 

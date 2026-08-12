@@ -1,7 +1,4 @@
-"use client";
-
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { ChevronLeft, ChevronRight, ShieldCheck, Truck, Tag, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 

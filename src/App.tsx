@@ -1,9 +1,10 @@
-"use client";
-
 import { Header } from "@/components/navigation/header";
 import { Footer } from "@/components/navigation/footer";
 import { HeroSlider } from "@/components/home/HeroSlider";
+import { Products } from "@/components/home/Products";
 import { ProductCategoryRow } from "@/components/home/ProductCategoryRow";
+import { ProductTitleRow } from "@/components/home/ProductTitleRow";
+import { ProductGrid } from "@/components/products/ProductGrid";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -12,37 +13,40 @@ import { Badge } from "@/components/ui/badge";
 import {
   Printer,
   Sparkles,
-  ShieldCheck,
   PackageCheck,
   Palette,
   Ruler,
   ArrowRight,
-  Clock,
-  CheckCircle2,
 } from "lucide-react";
 
-/* Font Awesome Icons */
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPrint,
-  faStamp,
-  faCertificate,
-} from "@fortawesome/free-solid-svg-icons";
-
-export default function Home() {
+export default function App() {
   return (
     <div className="min-h-screen bg-white text-[#0E0F08] flex flex-col font-sans selection:bg-[#CC0000] selection:text-white">
       {/* 1. Navigation Header */}
       <Header />
 
-      {/* 2. Full-Width Premium Hero Carousel Slider */}
-      <HeroSlider />
+      {/* 2. Hero Slider with Overlapping Products Carousel */}
+      <div className="relative w-full bg-white">
+        <HeroSlider />
 
-      {/* 3. Horizontal Product Category Row */}
-      <ProductCategoryRow />
+        {/* Floating Overlap Products Row (Half over Hero bottom, Half extending out below) */}
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-14 sm:-mt-16 lg:-mt-12 z-30 ">
+          <Products />
+        </div>
+      </div>
+
+
+      {/* 4. Core Dynamic Product Cards Grid (6 Card Types System) */}
+      <ProductGrid />
+
+      
+      {/* 3. Infinite Product Title Marquee Banner */}
+      <ProductTitleRow variant="light" speedDuration={40} />
+
+
 
       {/* 4. Production Capabilities Grid */}
-      <section id="services" className="w-full bg-[#F7F7F5] border-b border-[#E3E3DE] py-16 lg:py-24 font-sans">
+      <section id="services" className="w-full bg-[#F7F7F5] py-16 lg:py-24 font-sans">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-14">
             <h2 className="text-xs font-bold uppercase tracking-widest text-[#CC0000] mb-2">
@@ -124,6 +128,7 @@ export default function Home() {
         </div>
       </section>
 
+      
       {/* 5. Production Quality Banner */}
       <section className="w-full bg-white py-16 lg:py-20 border-b border-[#E3E3DE] font-sans">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
