@@ -29,7 +29,7 @@ export function CustomQuoteCTA() {
           <div className="relative z-10 p-8 sm:p-12 lg:p-16 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
             {/* Left Content Column */}
-            <div className="lg:col-span-8 space-y-6">
+            <div className="lg:col-span-8 space-y-6 text-center lg:text-left flex flex-col items-center lg:items-start">
               
               {/* Heading (Tag removed as requested) */}
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.15]">
@@ -45,7 +45,7 @@ export function CustomQuoteCTA() {
               </p>
 
               {/* Feature Chips Row */}
-              <div className="flex flex-wrap gap-3 pt-2">
+              <div className="flex flex-wrap justify-center lg:justify-start gap-3 pt-2">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-white/10 border border-white/15 text-slate-200 text-xs font-semibold backdrop-blur-md">
                   <Zap className="w-3.5 h-3.5 text-[#CC0000]" />
                   <span>Same-Day Production</span>

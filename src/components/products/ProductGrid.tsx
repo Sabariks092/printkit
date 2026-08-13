@@ -2,11 +2,18 @@ import React, { useState, useMemo, useEffect } from "react";
 import { products, categories, Product } from "../../data/products";
 import { ProductCard, getProductCardType } from "./ProductCard";
 import { QuoteModal } from "./QuoteModal";
-import { Search, Sparkles, Filter, Grid, SlidersHorizontal } from "lucide-react";
+import {
+  Search,
+  Sparkles,
+  Filter,
+  Grid,
+  SlidersHorizontal,
+} from "lucide-react";
 
 export function ProductGrid() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState<boolean>(false);
 
   // Listen for show-all-products event dispatched by search bar or product row
   useEffect(() => {
@@ -20,8 +27,12 @@ export function ProductGrid() {
   }, []);
 
   // Modal state for quotes and orders
-  const [activeModalProduct, setActiveModalProduct] = useState<Product | null>(null);
-  const [modalSelections, setModalSelections] = useState<Record<string, any>>({});
+  const [activeModalProduct, setActiveModalProduct] = useState<Product | null>(
+    null,
+  );
+  const [modalSelections, setModalSelections] = useState<Record<string, any>>(
+    {},
+  );
   const [modalPrice, setModalPrice] = useState<number | null>(null);
 
   // Filter & sort products dynamically - Contact/Quote cards are placed at the end
@@ -29,7 +40,10 @@ export function ProductGrid() {
     const list = products.filter((product) => {
       const matchesCategory =
         selectedCategory === "all" ||
-        product.category.toLowerCase().replace(/ & /g, "-").replace(/\s+/g, "-") === selectedCategory ||
+        product.category
+          .toLowerCase()
+          .replace(/ & /g, "-")
+          .replace(/\s+/g, "-") === selectedCategory ||
         product.category === selectedCategory;
 
       const matchesSearch =
@@ -49,8 +63,11 @@ export function ProductGrid() {
     });
   }, [selectedCategory, searchQuery]);
 
-
-  const handleSelectProduct = (product: Product, selections: Record<string, any>, price: number | null) => {
+  const handleSelectProduct = (
+    product: Product,
+    selections: Record<string, any>,
+    price: number | null,
+  ) => {
     setActiveModalProduct(product);
     setModalSelections(selections);
     setModalPrice(price);
@@ -63,38 +80,107 @@ export function ProductGrid() {
   };
 
   return (
-    <section id="products" className="w-full bg-[#F7F7F5] pt-14 pb-12 lg:pt-20 lg:pb-20 font-sans border-b border-[#E3E3DE]">
+    <section
+      id="products"
+      className="w-full bg-[#F7F7F5] pt-14 pb-12 lg:pt-20 lg:pb-20 font-sans border-b border-[#E3E3DE]"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-10">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E3E3DE] pb-6">
-          <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 py-1 rounded-full text-[#CC0000] text-xs font-semibold uppercase tracking-widest">
-              {/* <Sparkles className="w-3.5 h-3.5" /> */}
-              <span>Full Print Catalogue</span>
-            </div>
+          <div className="space-y-2 text-center md:text-left flex flex-col items-center md:items-start w-full md:w-auto">
+            <span className="text-xs font-bold uppercase tracking-widest flex gap-2 items-center mb-3 text-[#CC0000] mb-2">
+              <img src="/favicon.png" className="h-5 w-auto" alt="" />
+              Full Print Catalogue
+            </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0E0F08] tracking-tight">
               Product Specifications & Pricing
             </h2>
             <p className="text-sm text-[#555750] font-medium max-w-2xl">
-              Configure exact print specifications, sizes, quantities, and finishes. All prices recalculate instantly.
+              Configure exact print specifications, sizes, quantities, and
+              finishes. All prices recalculate instantly.
             </p>
           </div>
 
-          {/* Search Bar */}
-          <div className="relative w-full md:w-72">
-            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#777970]" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search products, sizes..."
-              className="w-full pl-10 pr-4 py-2.5 bg-white text-xs font-semibold text-[#0E0F08] border border-[#E3E3DE] rounded-xl focus:border-[#CC0000] focus:ring-1 focus:ring-[#CC0000] outline-none transition-all shadow-2xs"
-            />
+          {/* Search & Mobile Filter Bar */}
+          <div className="relative w-full max-w-md md:max-w-none md:w-72 flex gap-2 items-center mx-auto md:mx-0">
+            <div className="relative flex-1">
+              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#777970]" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search products, sizes..."
+                className="w-full pl-10 pr-4 py-2.5 bg-white text-xs font-semibold text-[#0E0F08] border border-[#E3E3DE] rounded-xl focus:border-[#CC0000] focus:ring-1 focus:ring-[#CC0000] outline-none transition-all shadow-2xs"
+              />
+            </div>
+            
+            {/* Mobile Filter Button */}
+            <div className="relative md:hidden shrink-0">
+              <button
+                type="button"
+                onClick={() => setIsMobileFilterOpen(!isMobileFilterOpen)}
+                className={`p-2.5 rounded-xl border flex items-center justify-center transition-all cursor-pointer ${
+                  selectedCategory !== "all"
+                    ? "bg-[#CC0000] border-[#CC0000] text-white"
+                    : "bg-white border-[#E3E3DE] text-[#0E0F08] hover:border-[#CC0000]/50"
+                }`}
+                aria-label="Filter products"
+              >
+                <Filter className="w-4.5 h-4.5" />
+              </button>
+
+              {/* Mobile Filter Dropdown Menu */}
+              {isMobileFilterOpen && (
+                <>
+                  {/* Backdrop overlay to close on click outside */}
+                  <div 
+                    className="fixed inset-0 z-40 bg-transparent" 
+                    onClick={() => setIsMobileFilterOpen(false)}
+                  />
+                  <div className="absolute right-0 mt-2 w-48 bg-white border border-[#E3E3DE] rounded-xl shadow-lg py-2 z-50 animate-in fade-in slide-in-from-top-1 duration-100">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedCategory("all");
+                        setIsMobileFilterOpen(false);
+                      }}
+                      className={`w-full text-left px-4 py-2 text-xs font-bold ${
+                        selectedCategory === "all"
+                          ? "text-[#CC0000] bg-[#FFF5F5]"
+                          : "text-[#0E0F08] hover:bg-neutral-50"
+                      }`}
+                    >
+                      All Products
+                    </button>
+                    {categories.map((cat) => {
+                      const isSelected = selectedCategory === cat.id || selectedCategory === cat.name;
+                      return (
+                        <button
+                          key={cat.id}
+                          type="button"
+                          onClick={() => {
+                            setSelectedCategory(cat.id);
+                            setIsMobileFilterOpen(false);
+                          }}
+                          className={`w-full text-left px-4 py-2 text-xs font-medium ${
+                            isSelected
+                              ? "text-[#CC0000] bg-[#FFF5F5] font-bold"
+                              : "text-[#0E0F08] hover:bg-neutral-50"
+                          }`}
+                        >
+                          {cat.name}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
 
         {/* Category Navigation Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none scroll-smooth">
+        <div className="hidden md:flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none scroll-smooth">
           <button
             type="button"
             onClick={() => setSelectedCategory("all")}
@@ -111,10 +197,14 @@ export function ProductGrid() {
             const count = products.filter(
               (p) =>
                 p.category === cat.name ||
-                p.category.toLowerCase().replace(/ & /g, "-").replace(/\s+/g, "-") === cat.id
+                p.category
+                  .toLowerCase()
+                  .replace(/ & /g, "-")
+                  .replace(/\s+/g, "-") === cat.id,
             ).length;
 
-            const isSelected = selectedCategory === cat.id || selectedCategory === cat.name;
+            const isSelected =
+              selectedCategory === cat.id || selectedCategory === cat.name;
 
             return (
               <button
@@ -124,7 +214,7 @@ export function ProductGrid() {
                 className={`px-4 py-2 text-xs font-medium rounded-xl border transition-all cursor-pointer whitespace-nowrap shrink-0 flex items-center gap-2 ${
                   isSelected
                     ? "bg-[#CC0000] text-white shadow-sm"
-                : "bg-white text-[#0E0F08] border-[#CC0000] hover:border-[#CC0000]/50"
+                    : "bg-white text-[#0E0F08] border-[#CC0000] hover:border-[#CC0000]/50"
                 }`}
               >
                 <span>{cat.name}</span>
@@ -159,9 +249,12 @@ export function ProductGrid() {
             <div className="w-12 h-12 rounded-full bg-[#FFF5F5] text-[#CC0000] flex items-center justify-center mx-auto">
               <SlidersHorizontal className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-[#0E0F08]">No Products Match Your Filter</h3>
+            <h3 className="text-lg font-bold text-[#0E0F08]">
+              No Products Match Your Filter
+            </h3>
             <p className="text-xs text-[#555750]">
-              Try searching with a different product name or select "All Products".
+              Try searching with a different product name or select "All
+              Products".
             </p>
             <button
               onClick={() => {

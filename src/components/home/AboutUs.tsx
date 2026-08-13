@@ -36,7 +36,7 @@ export function AboutUs() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         
         {/* Section Header with Logo Badge */}
-        <div className="flex flex-col items-center text-center max-w-3xl mx-auto space-y-4">
+        {/* <div className="flex flex-col items-center text-center max-w-3xl mx-auto space-y-4">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FFF5F5] border border-[#FDECEC] text-[#CC0000] text-xs font-extrabold uppercase tracking-widest shadow-xs">
             <img src="/favicon.png" alt="PrintKit Seal" className="w-4 h-4 object-contain" />
             <span>Official PrintKit Facility</span>
@@ -50,13 +50,21 @@ export function AboutUs() {
           <p className="text-base text-[#555750] font-medium leading-relaxed">
             Combining industrial offset press horsepower with automated digital proofing, PrintKit is India's leading commercial print engineering partner.
           </p>
-        </div>
+        </div> */}
 
         {/* Main Grid: Left Story & Right Brand Showcase Card */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           {/* Left Text Column */}
-          <div className="lg:col-span-6 space-y-6">
+          <div className="lg:col-span-6 space-y-6 text-center lg:text-left flex flex-col items-center lg:items-start">
+
+                  <div className="flex items-center justify-center lg:justify-start gap-3">
+                  <img
+                    src="/logo.png"
+                    alt="PrintKit Logo"
+                    className="h-20 w-auto object-contain "
+                  />
+                </div>
             
             <div className="space-y-3">
               <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0E0F08]">
@@ -77,7 +85,7 @@ export function AboutUs() {
                 "Instant Digital Proofing Engine",
                 "Nationwide Safe Transit Packaging",
               ].map((item, idx) => (
-                <div key={idx} className="flex items-center gap-2.5 text-xs font-bold text-[#0E0F08] bg-[#F7F7F5] p-2.5 rounded-xl border border-[#E3E3DE]">
+                <div key={idx} className="flex items-center gap-2.5 text-[14px] font-medium text-[#0E0F08] bg-[#F7F7F5] p-2.5 rounded-xl border border-[#E3E3DE]">
                   <CheckCircle2 className="w-4 h-4 text-[#CC0000] shrink-0" />
                   <span>{item}</span>
                 </div>
@@ -85,10 +93,10 @@ export function AboutUs() {
             </div>
 
             {/* Action CTA Link */}
-            <div className="pt-4 flex items-center gap-4">
+            <div className="pt-2 flex items-center justify-center lg:justify-start gap-4">
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#CC0000] hover:bg-[#A80000] text-white font-extrabold text-sm shadow-lg shadow-[#CC0000]/25 transition-all cursor-pointer active:scale-95"
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#CC0000] hover:bg-[#A80000] text-white font-semibold text-sm shadow-lg shadow-[#CC0000]/25 transition-all cursor-pointer active:scale-95"
               >
                 <span>Partner With Our Print Desk</span>
                 <ArrowRight className="w-4 h-4" />
@@ -97,86 +105,67 @@ export function AboutUs() {
 
           </div>
 
-          {/* Right Column: Premium Brand Showcase Card with logo.png & favicon.png */}
-          <div className="lg:col-span-6">
-            <div className="relative rounded-[24px] bg-[#0E0F08] p-8 sm:p-10 border border-slate-800 shadow-2xl overflow-hidden group">
+          {/* Right Column: 4 Featured Products Showcase Grid */}
+          <div className="lg:col-span-6 hidden md:block">
+            <div className="grid grid-cols-2 gap-4">
               
-              {/* Background Glow Overlay */}
-              <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-[#CC0000]/20 blur-3xl pointer-events-none" />
-              <div className="absolute -bottom-24 -left-24 w-72 h-72 rounded-full bg-[#CC0000]/15 blur-3xl pointer-events-none" />
-
-              {/* Brand Header with Logo & Favicon */}
-              <div className="relative z-10 flex items-center justify-between border-b border-white/15 pb-6 mb-8">
-                <div className="flex items-center gap-3">
+              {/* Product 1: Business Cards */}
+              <div className="bg-[#F7F7F5] border border-[#E3E3DE] rounded-2xl p-4 flex flex-col items-center text-center space-y-2 hover:border-[#CC0000] hover:shadow-xl transition-all duration-300 group">
+                <div className="w-full h-32 rounded-xl bg-white  p-2.5 flex items-center justify-center overflow-hidden">
                   <img
-                    src="/logo.png"
-                    alt="PrintKit Logo"
-                    className="h-10 w-auto object-contain brightness-0 invert"
+                    src="/product-png/business-cards.png"
+                    alt="Luxury Business Cards"
+                    className="w-full h-full object-contain group-hover:scale-105 transition-transform"
                   />
                 </div>
-
-                <div className="flex items-center gap-2 bg-white/10 border border-white/15 px-3 py-1.5 rounded-full backdrop-blur-md">
-                  <img src="/favicon.png" alt="PrintKit Favicon" className="w-4 h-4 object-contain" />
-                  <span className="text-[11px] font-mono font-bold text-white tracking-wider">
-                    EST. PRINTKIT
-                  </span>
-                </div>
+                <h4 className="text-xs sm:text-sm font-medium text-[#0E0F08]">Business Cards</h4>
+                <span className="text-[11px] font-medium text-[#CC0000] bg-[#FFF5F5] px-2.5 py-0.5 rounded-full border border-[#FDECEC]">
+                  2400 DPI Offset
+                </span>
               </div>
 
-              {/* Interactive Pillar Selector */}
-              <div className="relative z-10 space-y-4">
-                <div className="text-xs uppercase tracking-widest text-[#CC0000] font-extrabold">
-                  Core Engineering Capabilities
+              {/* Product 2: Corporate Brochures */}
+              <div className="bg-[#F7F7F5] border border-[#E3E3DE] rounded-2xl p-4 flex flex-col items-center text-center space-y-2 hover:border-[#CC0000] hover:shadow-xl transition-all duration-300 group">
+                <div className="w-full h-32 rounded-xl bg-white  p-2.5 flex items-center justify-center overflow-hidden">
+                  <img
+                    src="/product-png/brochures.png"
+                    alt="Corporate Brochures"
+                    className="w-full h-full object-contain group-hover:scale-105 transition-transform"
+                  />
                 </div>
-
-                {/* Pillar Cards */}
-                <div className="space-y-3">
-                  {pillars.map((pillar, pIdx) => {
-                    const PillarIcon = pillar.icon;
-                    const isSelected = activeTab === pIdx;
-
-                    return (
-                      <div
-                        key={pIdx}
-                        onClick={() => setActiveTab(pIdx)}
-                        className={`p-4 rounded-xl border transition-all cursor-pointer ${
-                          isSelected
-                            ? "bg-white/15 border-[#CC0000] shadow-lg"
-                            : "bg-white/5 border-white/10 hover:bg-white/10"
-                        }`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${
-                            isSelected ? "bg-[#CC0000] text-white" : "bg-white/10 text-slate-300"
-                          }`}>
-                            <PillarIcon className="w-4 h-4" />
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <h4 className="text-xs sm:text-sm font-bold text-white truncate">
-                              {pillar.title}
-                            </h4>
-                            <p className="text-[11px] text-slate-400 truncate">
-                              {pillar.sub}
-                            </p>
-                          </div>
-                        </div>
-
-                        {isSelected && (
-                          <p className="text-xs text-slate-300 mt-3 pt-3 border-t border-white/10 leading-relaxed animate-in fade-in">
-                            {pillar.desc}
-                          </p>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
+                <h4 className="text-xs sm:text-sm font-medium text-[#0E0F08]">Corporate Brochures</h4>
+                <span className="text-[11px] font-medium text-[#CC0000] bg-[#FFF5F5] px-2.5 py-0.5 rounded-full border border-[#FDECEC]">
+                  Gloss & Matte Proof
+                </span>
               </div>
 
-              {/* Card Footer */}
-              <div className="relative z-10 mt-8 pt-6 border-t border-white/15 flex items-center justify-between text-xs text-slate-400">
-                <span className="font-mono">Precision standard: 2400 DPI</span>
-                <span className="text-[#CC0000] font-bold flex items-center gap-1">
-                  Verified Facility <Sparkles className="w-3.5 h-3.5" />
+              {/* Product 3: Roll-Up Standees */}
+              <div className="bg-[#F7F7F5] border border-[#E3E3DE] rounded-2xl p-4 flex flex-col items-center text-center space-y-2 hover:border-[#CC0000] hover:shadow-xl transition-all duration-300 group">
+                <div className="w-full h-32 rounded-xl bg-white  p-2.5 flex items-center justify-center overflow-hidden">
+                  <img
+                    src="/product-png/roll-up-standee.png"
+                    alt="Roll-Up Display Standees"
+                    className="w-full h-full object-contain group-hover:scale-105 transition-transform"
+                  />
+                </div>
+                <h4 className="text-xs sm:text-sm font-medium text-[#0E0F08]">Roll-Up Standees</h4>
+                <span className="text-[11px] font-medium text-[#CC0000] bg-[#FFF5F5] px-2.5 py-0.5 rounded-full border border-[#FDECEC]">
+                  Aluminium Base
+                </span>
+              </div>
+
+              {/* Product 4: Flex Banners */}
+              <div className="bg-[#F7F7F5] border border-[#E3E3DE] rounded-2xl p-4 flex flex-col items-center text-center space-y-2 hover:border-[#CC0000] hover:shadow-xl transition-all duration-300 group">
+                <div className="w-full h-32 rounded-xl bg-white p-2.5 flex items-center justify-center overflow-hidden">
+                  <img
+                    src="/product-png/flex-banners.png"
+                    alt="Outdoor Flex Banners"
+                    className="w-full h-full object-contain group-hover:scale-105 transition-transform"
+                  />
+                </div>
+                <h4 className="text-xs sm:text-sm font-medium text-[#0E0F08]">Flex Banners</h4>
+                <span className="text-[11px] font-medium text-[#CC0000] bg-[#FFF5F5] px-2.5 py-0.5 rounded-full border border-[#FDECEC]">
+                  Weatherproof Star Flex
                 </span>
               </div>
 
@@ -185,43 +174,55 @@ export function AboutUs() {
 
         </div>
 
-        {/* Bottom 4 Key Metrics Bar */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-4">
+        {/* Bottom 4 Precision Printing Services Points Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-4">
           
-          <div className="bg-[#F7F7F5] border border-[#E3E3DE] rounded-2xl p-6 text-center space-y-2 hover:border-[#CC0000] transition-colors shadow-xs">
-            <div className="w-10 h-10 rounded-xl bg-[#FFF5F5] border border-[#FDECEC] flex items-center justify-center text-[#CC0000] mx-auto">
-              <Printer className="w-5 h-5" />
+          {/* Card 1: Commercial Printing */}
+          <div className="bg-[#F7F7F5] border border-[#E3E3DE] rounded-2xl p-5 text-center space-y-3 hover:border-[#CC0000] hover:shadow-xl transition-all duration-300 group">
+            <div className="w-full h-36 rounded-xl bg-white border border-[#E3E3DE] overflow-hidden flex items-center justify-center p-3 group-hover:scale-[1.02] transition-transform">
+              <img src="/print.png" alt="Commercial Printing Services" className="w-full h-full object-contain" />
             </div>
-            <div className="text-3xl font-extrabold text-[#0E0F08]">10M+</div>
-            <div className="text-xs font-bold text-[#0E0F08]">Total Prints Delivered</div>
-            <p className="text-[11px] text-[#777970]">Across 5,000+ corporate clients</p>
+            <div className="text-2xl font-bold text-[#0E0F08]">10M+ Prints</div>
+            <div className="text-sm font-medium text-[#0E0F08] capitalize tracking-wider">Commercial Printing</div>
+            <p className="text-[14px] text-[#777970] leading-relaxed">
+              Industrial offset & digital printing across 5,000+ corporate accounts.
+            </p>
           </div>
 
-          <div className="bg-[#F7F7F5] border border-[#E3E3DE] rounded-2xl p-6 text-center space-y-2 hover:border-[#CC0000] transition-colors shadow-xs">
-            <div className="w-10 h-10 rounded-xl bg-[#FFF5F5] border border-[#FDECEC] flex items-center justify-center text-[#CC0000] mx-auto">
-              <ShieldCheck className="w-5 h-5" />
+          {/* Card 2: Large Format Signage */}
+          <div className="bg-[#F7F7F5] border border-[#E3E3DE] rounded-2xl p-5 text-center space-y-3 hover:border-[#CC0000] hover:shadow-xl transition-all duration-300 group">
+            <div className="w-full h-36 rounded-xl bg-white border border-[#E3E3DE] overflow-hidden flex items-center justify-center p-3 group-hover:scale-[1.02] transition-transform">
+              <img src="/large-format.png" alt="Large Format Outdoor Displays" className="w-full h-full object-contain" />
             </div>
-            <div className="text-3xl font-extrabold text-[#0E0F08]">2400 DPI</div>
-            <div className="text-xs font-bold text-[#0E0F08]">Offset & Digital Resolution</div>
-            <p className="text-[11px] text-[#777970]">Japanese press accuracy</p>
+            <div className="text-2xl font-bold text-[#0E0F08]">2400 DPI</div>
+            <div className="text-sm font-medium text-[#0E0F08] capitalize tracking-wider">Large Format Signage</div>
+            <p className="text-[14px] text-[#777970] leading-relaxed">
+              High-resolution flex banners, standees, foam boards & vinyl graphics.
+            </p>
           </div>
 
-          <div className="bg-[#F7F7F5] border border-[#E3E3DE] rounded-2xl p-6 text-center space-y-2 hover:border-[#CC0000] transition-colors shadow-xs">
-            <div className="w-10 h-10 rounded-xl bg-[#FFF5F5] border border-[#FDECEC] flex items-center justify-center text-[#CC0000] mx-auto">
-              <Zap className="w-5 h-5" />
+          {/* Card 3: Custom Packaging & Boxes */}
+          <div className="bg-[#F7F7F5] border border-[#E3E3DE] rounded-2xl p-5 text-center space-y-3 hover:border-[#CC0000] hover:shadow-xl transition-all duration-300 group">
+            <div className="w-full h-36 rounded-xl bg-white border border-[#E3E3DE] overflow-hidden flex items-center justify-center p-3 group-hover:scale-[1.02] transition-transform">
+              <img src="/packaging.png" alt="Custom Packaging & Boxes" className="w-full h-full object-contain" />
             </div>
-            <div className="text-3xl font-extrabold text-[#0E0F08]">24 Hours</div>
-            <div className="text-xs font-bold text-[#0E0F08]">Express Dispatch Option</div>
-            <p className="text-[11px] text-[#777970]">For urgent promotional events</p>
+            <div className="text-2xl font-bold text-[#0E0F08]">24 HR Express</div>
+            <div className="text-sm font-medium text-[#0E0F08] capitalize tracking-wider">Custom Packaging</div>
+            <p className="text-[14px] text-[#777970] leading-relaxed">
+              Precision die-cut boxes, product labels & transit packaging solutions.
+            </p>
           </div>
 
-          <div className="bg-[#F7F7F5] border border-[#E3E3DE] rounded-2xl p-6 text-center space-y-2 hover:border-[#CC0000] transition-colors shadow-xs">
-            <div className="w-10 h-10 rounded-xl bg-[#FFF5F5] border border-[#FDECEC] flex items-center justify-center text-[#CC0000] mx-auto">
-              <Award className="w-5 h-5" />
+          {/* Card 4: Premium Finishes & Proofing */}
+          <div className="bg-[#F7F7F5] border border-[#E3E3DE] rounded-2xl p-5 text-center space-y-3 hover:border-[#CC0000] hover:shadow-xl transition-all duration-300 group">
+            <div className="w-full h-36 rounded-xl bg-white border border-[#E3E3DE] overflow-hidden flex items-center justify-center p-3 group-hover:scale-[1.02] transition-transform">
+              <img src="/finshes.png" alt="Premium Finishes & Soft Touch Lamination" className="w-full h-full object-contain" />
             </div>
-            <div className="text-3xl font-extrabold text-[#0E0F08]">99.9%</div>
-            <div className="text-xs font-bold text-[#0E0F08]">Color Matching Rate</div>
-            <p className="text-[11px] text-[#777970]">Pantone spectrophotometer proof</p>
+            <div className="text-2xl font-bold text-[#0E0F08]">99.9% Match</div>
+            <div className="text-sm font-medium text-[#0E0F08] capitalize tracking-wider">Premium Finishes</div>
+            <p className="text-[14px] text-[#777970] leading-relaxed">
+              Spot UV, foil stamping, soft-touch matte lamination & Pantone proofing.
+            </p>
           </div>
 
         </div>

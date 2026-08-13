@@ -38,6 +38,36 @@ export function CardType4CustomDimension({ product, onSelectProduct }: CardType4
     return () => clearTimeout(timer);
   }, [priceResult.formattedPrice]);
 
+  // Listen to custom highlight event (e.g. dispatched by header search selection)
+  useEffect(() => {
+    const triggerHighlight = () => {
+      setIsGlittering(true);
+      if (cardRef.current) {
+        const rect = cardRef.current.getBoundingClientRect();
+        const offsetTop = rect.top + window.pageYOffset - 110;
+        window.scrollTo({
+          top: Math.max(0, offsetTop),
+          behavior: "smooth",
+        });
+      }
+      setTimeout(() => setIsGlittering(false), 1400);
+    };
+
+    if ((window as any).__targetHighlightProductId === product.id) {
+      (window as any).__targetHighlightProductId = null;
+      setTimeout(triggerHighlight, 50);
+    }
+
+    const handleHighlight = (e: Event) => {
+      const customEvt = e as CustomEvent<{ productId: string }>;
+      if (customEvt.detail?.productId === product.id) {
+        triggerHighlight();
+      }
+    };
+    window.addEventListener("highlight-product-card", handleHighlight);
+    return () => window.removeEventListener("highlight-product-card", handleHighlight);
+  }, [product.id]);
+
   const handleTypeChange = (typeVal: string) => {
     setSelections((prev) => ({ ...prev, type: typeVal }));
   };
@@ -113,14 +143,14 @@ export function CardType4CustomDimension({ product, onSelectProduct }: CardType4
               {product.name}
             </h3>
             <p className="text-xs text-[#555750] font-medium leading-relaxed mt-1">
-              Custom size banner printing with reinforced grommets & weather resistance.
+              {product.description || "Custom size banner printing with reinforced grommets & weather resistance."}
             </p>
           </div>
 
           {/* Flex Banner Type Selection */}
           {typeAttr && (
             <div className="space-y-1 pt-2 border-t border-neutral-100">
-              <label className="text-[11px] font-bold text-[#0E0F08] uppercase tracking-wider flex items-center gap-1.5 truncate">
+              <label className="text-[13px] font-semibold text-[#0E0F08] capitalize tracking-wider flex items-center gap-1.5 truncate">
                 <FontAwesomeIcon icon={getAttributeFaIcon("type", "Material Grade")} className="text-[#CC0000] w-3 h-3 shrink-0" />
                 <span>Material Grade</span>
               </label>
@@ -128,10 +158,10 @@ export function CardType4CustomDimension({ product, onSelectProduct }: CardType4
                 <select
                   value={selections.type || ""}
                   onChange={(e) => handleTypeChange(e.target.value)}
-                  className="w-full pl-3.5 pr-8 py-2 text-xs font-bold text-[#0E0F08] bg-white border border-[#E3E3DE] rounded-full focus:border-[#CC0000] focus:ring-1 focus:ring-[#CC0000] active:border-[#CC0000] outline-none transition-colors cursor-pointer appearance-none truncate"
+                  className="w-full pl-3.5 pr-8 py-2 text-[13px] font-normal text-[#0E0F08] bg-white border border-[#E3E3DE] rounded-full focus:border-[#CC0000] focus:ring-1 focus:ring-[#CC0000] active:border-[#CC0000] outline-none transition-colors cursor-pointer appearance-none truncate"
                 >
                   {typeAttr.options?.map((t) => (
-                    <option key={t} value={t}>
+                    <option key={t} value={t} className="font-normal text-[13px]">
                       {t}
                     </option>
                   ))}
@@ -143,11 +173,11 @@ export function CardType4CustomDimension({ product, onSelectProduct }: CardType4
 
           {/* Custom Dimension Inputs */}
           <div className="p-3.5 bg-[#F7F7F5] border border-[#E3E3DE] rounded-2xl space-y-2">
-            <div className="flex items-center justify-between text-xs font-bold text-[#0E0F08]">
-              <span className="uppercase tracking-wider flex items-center gap-1.5">
+            <div className="flex items-center justify-between text-[#0E0F08]">
+              <label className="text-[13px] font-semibold capitalize tracking-wider flex items-center gap-1.5">
                 <Maximize2 className="w-3.5 h-3.5 text-[#CC0000]" />
                 <span>Dimensions (Feet)</span>
-              </span>
+              </label>
               {priceResult.totalAreaSqFt !== undefined && priceResult.totalAreaSqFt > 0 && (
                 <span className="text-[11px] font-bold text-[#CC0000] bg-[#FFF5F5] px-2.5 py-0.5 rounded-full border border-[#FDECEC]">
                   {priceResult.totalAreaSqFt} Sq.Ft
@@ -158,7 +188,7 @@ export function CardType4CustomDimension({ product, onSelectProduct }: CardType4
             <div className="grid grid-cols-2 gap-3">
               {/* Width Input */}
               <div className="space-y-1">
-                <label className="text-[10px] font-bold text-[#555750] uppercase tracking-wider flex items-center gap-1">
+                <label className="text-[13px] font-semibold capitalize text-[#0E0F08]  tracking-wider flex items-center gap-1">
                   <FontAwesomeIcon icon={faRulerHorizontal} className="text-[#CC0000] w-2.5 h-2.5" />
                   <span>Width (ft)</span>
                 </label>
@@ -170,7 +200,7 @@ export function CardType4CustomDimension({ product, onSelectProduct }: CardType4
                     step="0.5"
                     value={widthFt}
                     onChange={(e) => setWidthFt(e.target.value)}
-                    className="w-full h-9 pl-3 pr-7 text-xs font-bold bg-white text-[#0E0F08] border border-[#E3E3DE] rounded-full focus:border-[#CC0000] focus:ring-1 focus:ring-[#CC0000] outline-none transition-colors"
+                    className="w-full h-9 pl-3 pr-7 text-[13px] font-normal bg-white text-[#0E0F08] border border-[#E3E3DE] rounded-full focus:border-[#CC0000] focus:ring-1 focus:ring-[#CC0000] outline-none transition-colors"
                     placeholder="Width"
                   />
                   <span className="absolute right-3 text-xs font-semibold text-[#777970] pointer-events-none">ft</span>
@@ -179,7 +209,7 @@ export function CardType4CustomDimension({ product, onSelectProduct }: CardType4
 
               {/* Height Input */}
               <div className="space-y-1">
-                <label className="text-[10px] font-bold text-[#555750] uppercase tracking-wider flex items-center gap-1">
+                <label className="text-[13px] font-semibold capitalize text-[#0E0F08]  tracking-wider flex items-center gap-1">
                   <FontAwesomeIcon icon={faRulerVertical} className="text-[#CC0000] w-2.5 h-2.5" />
                   <span>Height (ft)</span>
                 </label>
@@ -191,7 +221,7 @@ export function CardType4CustomDimension({ product, onSelectProduct }: CardType4
                     step="0.5"
                     value={heightFt}
                     onChange={(e) => setHeightFt(e.target.value)}
-                    className="w-full h-9 pl-3 pr-7 text-xs font-bold bg-white text-[#0E0F08] border border-[#E3E3DE] rounded-full focus:border-[#CC0000] focus:ring-1 focus:ring-[#CC0000] outline-none transition-colors"
+                    className="w-full h-9 pl-3 pr-7 text-[14px] font-normal bg-white text-[#0E0F08] border border-[#E3E3DE] rounded-full focus:border-[#CC0000] focus:ring-1 focus:ring-[#CC0000] outline-none transition-colors"
                     placeholder="Height"
                   />
                   <span className="absolute right-3 text-xs font-semibold text-[#777970] pointer-events-none">ft</span>

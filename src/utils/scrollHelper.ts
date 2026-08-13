@@ -1,52 +1,86 @@
-export function scrollToProductCard(productId: string) {
-  // 1. Dispatch custom event so ProductGrid resets category filters and search queries
-  window.dispatchEvent(new CustomEvent("show-all-products", { detail: { productId } }));
+import type Lenis from "lenis";
 
-  // Helper to attempt smooth scrolling and card zoom animation
-  const attemptScrollAndAnimate = (): boolean => {
-    const cardEl = document.getElementById(`product-card-${productId}`);
-    if (cardEl) {
-      // Offset calculation taking sticky navbar (80px) into account with comfortable margin (110px)
-      const rect = cardEl.getBoundingClientRect();
-      const offsetTop = rect.top + window.pageYOffset - 110;
+const HEADER_OFFSET = 90;
 
-      window.scrollTo({
-        top: Math.max(0, offsetTop),
-        behavior: "smooth",
-      });
+let globalLenis: Lenis | null = null;
 
-      // Restart Zoom-In / Zoom-Out Glitter Animation
-      cardEl.classList.remove("animate-card-glitter");
-      void cardEl.offsetWidth; // Force DOM reflow
-      cardEl.classList.add("animate-card-glitter");
+export function setGlobalLenis(instance: Lenis | null) {
+  globalLenis = instance;
+}
 
-      setTimeout(() => {
-        cardEl.classList.remove("animate-card-glitter");
-      }, 1500);
-
-      return true;
-    }
-    return false;
-  };
-
-  // Try scrolling immediately
-  if (!attemptScrollAndAnimate()) {
-    // Retry after 100ms & 250ms for React re-renders if category filter was active
-    setTimeout(() => {
-      if (!attemptScrollAndAnimate()) {
-        setTimeout(() => {
-          if (!attemptScrollAndAnimate()) {
-            const productsSection = document.getElementById("products");
-            if (productsSection) {
-              const rect = productsSection.getBoundingClientRect();
-              window.scrollTo({
-                top: rect.top + window.pageYOffset - 90,
-                behavior: "smooth",
-              });
-            }
-          }
-        }, 150);
-      }
-    }, 100);
+/**
+ * Butter-smooth custom scroll animation.
+ * Uses Lenis instance when available, with cubic ease-in-out rAF fallback.
+ */
+export function smoothScrollTo(targetY: number, duration: number = 600) {
+  if (globalLenis) {
+    globalLenis.scrollTo(targetY, { duration: duration / 1000 });
+    return;
   }
+
+  const startY = window.scrollY;
+  const distance = targetY - startY;
+
+  if (Math.abs(distance) < 5) {
+    window.scrollTo(0, Math.max(0, targetY));
+    return;
+  }
+
+  const startTime = performance.now();
+
+  function step(currentTime: number) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+
+    const ease =
+      progress < 0.5
+        ? 4 * progress * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+    window.scrollTo(0, Math.max(0, startY + distance * ease));
+
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    }
+  }
+
+  requestAnimationFrame(step);
+}
+
+/**
+ * Scrolls smoothly to an element by ID with header offset clearance.
+ */
+export function scrollToElementId(elementId: string, duration: number = 600) {
+  const el = document.getElementById(elementId);
+  if (!el) return;
+
+  if (globalLenis) {
+    globalLenis.scrollTo(el, { offset: -HEADER_OFFSET, duration: duration / 1000 });
+    return;
+  }
+
+  const targetTop = el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+  smoothScrollTo(targetTop, duration);
+}
+
+/**
+ * Scrolls smoothly to a specific product card by id.
+ */
+export function scrollToProductCard(productId: string) {
+  const cardEl =
+    document.getElementById(`product-card-${productId}`) ||
+    document.getElementById(`product-${productId}`);
+  const targetEl = cardEl || document.getElementById("products");
+
+  if (!targetEl) return;
+
+  if (globalLenis) {
+    globalLenis.scrollTo(targetEl, { offset: -HEADER_OFFSET, duration: 0.6 });
+    return;
+  }
+
+  const targetTop =
+    targetEl.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+
+  smoothScrollTo(targetTop, 600);
 }

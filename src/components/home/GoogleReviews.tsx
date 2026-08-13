@@ -144,49 +144,12 @@ export function GoogleReviews() {
     <section id="reviews" className="w-full bg-[#F7F7F5] py-16 lg:py-24 font-sans overflow-hidden border-b border-[#E3E3DE]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header Summary Bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12 bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-[#E3E3DE]">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-2xl bg-[#F8F9FA] border border-slate-200 flex items-center justify-center shadow-xs shrink-0">
-              <GoogleGIcon className="w-8 h-8" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl sm:text-3xl font-extrabold text-[#0E0F08]">4.9</span>
-                <div className="flex items-center gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-[#FBBC04] text-[#FBBC04]" />
-                  ))}
-                </div>
-              </div>
-              <p className="text-xs sm:text-sm font-semibold text-[#555750] mt-1">
-                Based on <span className="text-[#0E0F08] font-bold">520+ Verified Reviews</span> on Google Business
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              <span>100% Verified Customer Feedback</span>
-            </div>
-
-            <a
-              href="https://google.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0E0F08] hover:bg-[#CC0000] text-white text-xs font-bold transition-all shadow-md active:scale-95 cursor-pointer"
-            >
-              <span>Write a Review</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
-          </div>
-        </div>
+        
 
         {/* Section Headline */}
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#CC0000] mb-2 block">
-            Customer Testimonials
+          <span className="text-xs font-bold uppercase tracking-widest flex gap-2 justify-center items-center mb-3 text-[#CC0000] mb-2 block">
+             <img src="/favicon.png" className="h-5 w-auto" alt="" /> Customer Testimonials
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0E0F08] tracking-tight">
             Trusted by 5,000+ Businesses Nationwide
@@ -269,6 +232,46 @@ export function GoogleReviews() {
             ))}
           </div>
 
+          
+
+        </div>
+        {/* Header Summary Bar */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mt-6 mb-12 bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-[#E3E3DE]">
+          <div className="flex items-center gap-4">
+            <div className="w-14 h-14 rounded-2xl bg-[#F8F9FA] border border-slate-200 flex items-center justify-center shadow-xs shrink-0">
+              <GoogleGIcon className="w-8 h-8" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-2xl sm:text-3xl font-extrabold text-[#0E0F08]">4.9</span>
+                <div className="flex items-center gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 fill-[#FBBC04] text-[#FBBC04]" />
+                  ))}
+                </div>
+              </div>
+              <p className="text-xs sm:text-sm font-semibold text-[#555750] mt-1">
+                Based on <span className="text-[#0E0F08] font-bold">520+ Verified Reviews</span> on Google Business
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="hidden sm:flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+              <span>100% Verified Customer Feedback</span>
+            </div>
+
+            <a
+              href="https://google.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0E0F08] hover:bg-[#CC0000] text-white text-xs font-bold transition-all shadow-md active:scale-95 cursor-pointer"
+            >
+              <span>Write a Review</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
         </div>
 
       </div>

@@ -83,7 +83,8 @@ export function ProductDetailsModal({
                 Product Overview
               </h4>
               <p className="text-xs text-[#555750] leading-relaxed font-medium">
-                {product.contactMessage ||
+                {product.description ||
+                  product.contactMessage ||
                   `High-precision professional printing for ${product.name.toLowerCase()} using industrial grade offset and digital print technology. Designed for max durability and crisp color clarity.`}
               </p>
             </div>

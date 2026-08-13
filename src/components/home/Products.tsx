@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { getProductImage } from "../../utils/productImages";
 import { scrollToProductCard } from "../../utils/scrollHelper";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export interface CarouselProductItem {
   id: string;
@@ -30,75 +29,42 @@ export const ALL_PRODUCTS_LIST: CarouselProductItem[] = [
 ];
 
 export function Products() {
-  const [startIndex, setStartIndex] = useState(0);
-  const itemsPerPage = 7;
-
-  const handleNext = () => {
-    setStartIndex((prev) => (prev + itemsPerPage) % ALL_PRODUCTS_LIST.length);
-  };
-
-  const handlePrev = () => {
-    setStartIndex((prev) => (prev - itemsPerPage + ALL_PRODUCTS_LIST.length) % ALL_PRODUCTS_LIST.length);
-  };
-
-  const visibleItems = Array.from({ length: itemsPerPage }, (_, i) => {
-    return ALL_PRODUCTS_LIST[(startIndex + i) % ALL_PRODUCTS_LIST.length];
-  });
-
-  const handleItemClick = (id: string) => {
-    scrollToProductCard(id);
-  };
+  const marqueeItems = [...ALL_PRODUCTS_LIST, ...ALL_PRODUCTS_LIST];
 
   return (
-    <div className="relative w-full bg-white rounded p-3.5 sm:p-4 shadow-xl border border-neutral-200/80 font-sans flex items-center justify-between gap-3">
-      {/* Left Navigation Chevron Button */}
-      <button
-        type="button"
-        onClick={handlePrev}
-        aria-label="Previous products"
-        className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white hover:bg-[#CC0000] text-[#0E0F08] hover:text-white border border-neutral-200 shadow-xs flex items-center justify-center transition-all cursor-pointer active:scale-95 shrink-0"
-      >
-        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-      </button>
+    <div className="relative w-full bg-white rounded-2xl p-2 sm:p-3 shadow-xl border border-neutral-200/80 font-sans overflow-hidden">
+      {/* Subtle Side Fade Gradients */}
+      <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
-      {/* 6 Products Row (Matching Screenshot UI) */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2  flex-1 items-center">
-        {visibleItems.map((item) => (
+      {/* Infinite Marquee Track (Seamless Loop) */}
+      <div className="flex gap-3 sm:gap-4 w-max animate-marquee hover:[animation-play-state:paused] active:[animation-play-state:paused] py-1">
+        {marqueeItems.map((item, index) => (
           <div
-            key={`${item.id}-${startIndex}`}
-            onClick={() => handleItemClick(item.id)}
-            className="group flex items-center gap-3 p-2 sm:p-2.5 rounded-xl hover:bg-[#F7F7F5] transition-all cursor-pointer truncate"
+            key={`${item.id}-${index}`}
+            onClick={() => scrollToProductCard(item.id)}
+            className="w-[180px] sm:w-[210px] shrink-0 bg-white rounded-xl p-2 sm:p-2.5 border border-[#E3E3DE] hover:border-[#CC0000]/40 hover:bg-[#F7F7F5] shadow-2xs hover:shadow-md transition-all flex items-center gap-2.5 sm:gap-3 cursor-pointer select-none group"
           >
-            {/* Small Product PNG Image on Left */}
+            {/* Small Product PNG Image */}
             <img
               src={getProductImage(item.id)}
               alt={item.name}
-              className="w-10 h-10 sm:w-11 sm:h-11 object-contain shrink-0 group-hover:scale-105 transition-transform"
+              className="w-9 h-9 sm:w-10 sm:h-10 object-contain shrink-0 group-hover:scale-105 transition-transform"
               loading="lazy"
             />
 
-            {/* Product Title & Starting Price Stacked on Right */}
-            <div className="flex flex-col justify-center min-w-0">
+            {/* Product Title & Starting Price */}
+            <div className="flex flex-col justify-center min-w-0 flex-1">
               <h3 className="text-xs sm:text-sm font-bold text-[#0E0F08] group-hover:text-[#CC0000] transition-colors whitespace-nowrap truncate">
                 {item.name}
               </h3>
-              <p className="text-[11px] font-medium text-[#777970] whitespace-nowrap truncate">
+              <p className="text-[10px] sm:text-[11px] font-medium text-[#777970] whitespace-nowrap truncate">
                 {item.startingPrice}
               </p>
             </div>
           </div>
         ))}
       </div>
-
-      {/* Right Navigation Chevron Button */}
-      <button
-        type="button"
-        onClick={handleNext}
-        aria-label="Next products"
-        className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white hover:bg-[#CC0000] text-[#0E0F08] hover:text-white border border-neutral-200 shadow-xs flex items-center justify-center transition-all cursor-pointer active:scale-95 shrink-0"
-      >
-        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-      </button>
     </div>
   );
 }

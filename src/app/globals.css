@@ -49,11 +49,31 @@
   --foreground: #0E0F08;
 }
 
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
 body {
   background-color: #FFFFFF;
   color: #0E0F08;
   font-family: var(--font-poppins), sans-serif;
   letter-spacing: -0.01em;
+}
+
+section[id], div[id] {
+  scroll-margin-top: 90px;
 }
 
 /* Custom Red Focus Ring Utility */
@@ -78,13 +98,13 @@ body {
     transform: translateX(0%);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
 
 @keyframes marquee-reverse {
   0% {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
   100% {
     transform: translateX(0%);

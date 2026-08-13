@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Product } from "../../data/products";
 import { getProductImage } from "../../utils/productImages";
 import { openWhatsAppOrder } from "../../utils/whatsapp";
@@ -16,6 +16,35 @@ export function CardType6ContactQuote({ product, onContactProduct }: CardType6Pr
   const [isKnowMoreOpen, setIsKnowMoreOpen] = useState(false);
   const [isGlittering, setIsGlittering] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+  // Listen to custom highlight event (e.g. dispatched by header search selection)
+  useEffect(() => {
+    const triggerHighlight = () => {
+      setIsGlittering(true);
+      if (cardRef.current) {
+        const rect = cardRef.current.getBoundingClientRect();
+        const offsetTop = rect.top + window.pageYOffset - 110;
+        window.scrollTo({
+          top: Math.max(0, offsetTop),
+          behavior: "smooth",
+        });
+      }
+      setTimeout(() => setIsGlittering(false), 1400);
+    };
+
+    if ((window as any).__targetHighlightProductId === product.id) {
+      (window as any).__targetHighlightProductId = null;
+      setTimeout(triggerHighlight, 50);
+    }
+
+    const handleHighlight = (e: Event) => {
+      const customEvt = e as CustomEvent<{ productId: string }>;
+      if (customEvt.detail?.productId === product.id) {
+        triggerHighlight();
+      }
+    };
+    window.addEventListener("highlight-product-card", handleHighlight);
+    return () => window.removeEventListener("highlight-product-card", handleHighlight);
+  }, [product.id]);
 
   // Outside Card's Order Now button: triggers animation & opens WhatsApp
   const triggerGlitterAndOrder = () => {
@@ -76,7 +105,7 @@ export function CardType6ContactQuote({ product, onContactProduct }: CardType6Pr
               {product.name}
             </h3>
             <p className="text-xs text-[#555750] font-medium leading-relaxed mt-1">
-              {product.contactMessage || "For complete details & quotation, chat with us directly."}
+              {product.description || product.contactMessage || "For complete details & quotation, chat with us directly."}
             </p>
           </div>
 

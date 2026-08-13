@@ -54,19 +54,15 @@ export function ContactUs() {
 
   return (
     <section id="contact" className="w-full bg-[#F7F7F5] py-16 lg:py-24 font-sans border-b border-[#E3E3DE]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
-        
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         {/* Section Header */}
-        <div className="flex flex-col items-center text-center max-w-3xl mx-auto space-y-3">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FFF5F5] border border-[#FDECEC] text-[#CC0000] text-xs font-extrabold uppercase tracking-widest shadow-xs">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Direct Print Engineer Desk</span>
+        <div className="flex flex-col items-center text-center lg:items-start lg:text-start max-w-3xl space-y-3 mx-auto lg:mx-0">
+          <span className="text-xs font-bold uppercase tracking-widest flex gap-2 justify-center items-center mb-3 text-[#CC0000] mb-2">
+            <img src="/favicon.png" className="h-5 w-auto" alt="" /> Direct Print Engineer Desk
           </span>
-
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0E0F08] tracking-tight">
             Connect With Our Print Desk
           </h2>
-
           <p className="text-sm sm:text-base text-[#555750] font-medium leading-relaxed">
             Need custom dimensions, specialized Pantone spot colors, or instant bulk volume pricing? Send an inquiry or chat with us on WhatsApp.
           </p>

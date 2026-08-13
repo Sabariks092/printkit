@@ -1,5 +1,11 @@
+import { useEffect } from "react";
+import Lenis from "lenis";
+import "lenis/dist/lenis.css";
+import { setGlobalLenis } from "@/utils/scrollHelper";
+
 import { Header } from "@/components/navigation/header";
 import { Footer } from "@/components/navigation/footer";
+import { LegalSection } from "@/components/navigation/LegalSection";
 import { HeroSlider } from "@/components/home/HeroSlider";
 import { Products } from "@/components/home/Products";
 import { ProductTitleRow } from "@/components/home/ProductTitleRow";
@@ -20,6 +26,30 @@ import {
 } from "lucide-react";
 
 export default function App() {
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 1.5,
+    });
+
+    setGlobalLenis(lenis);
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      setGlobalLenis(null);
+      lenis.destroy();
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-white text-[#0E0F08] flex flex-col font-sans selection:bg-[#CC0000] selection:text-white">
       {/* 1. Navigation Header */}
@@ -42,7 +72,7 @@ export default function App() {
       <ProductTitleRow variant="light" speedDuration={40} />
 
       {/* 6. Production Capabilities Grid - id="services" */}
-      <section id="services" className="w-full bg-[#F7F7F5] py-16 lg:py-24 font-sans border-b border-[#E3E3DE]">
+      {/* <section id="services" className="w-full bg-[#F7F7F5] py-16 lg:py-24 font-sans border-b border-[#E3E3DE]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-14">
             <h2 className="text-xs font-bold uppercase tracking-widest text-[#CC0000] mb-2">
@@ -122,7 +152,7 @@ export default function App() {
             </Card>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* 7. Google Reviews Section - id="reviews" */}
       <GoogleReviews />
@@ -130,14 +160,18 @@ export default function App() {
       {/* 8. About Us Section - id="about" */}
       <AboutUs />
 
-      {/* 9. Premium Custom Quote CTA Banner Section */}
-      <CustomQuoteCTA />
+    
 
       {/* 10. Contact Us Section - id="contact" */}
       <ContactUs />
+        {/* 9. Premium Custom Quote CTA Banner Section */}
+      <CustomQuoteCTA />
 
       {/* 11. Footer */}
       <Footer />
+
+      {/* 12. Terms & Conditions and Privacy Policy Sections */}
+      <LegalSection />
     </div>
   );
 }

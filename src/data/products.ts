@@ -20,6 +20,7 @@ export interface Product {
   name: string;
   category: string;
   type: "configurable" | "contact";
+  description?: string;
   attributes: ProductAttribute[];
   pricing?: ProductPrice[];
   contactMessage?: string;
@@ -36,6 +37,7 @@ export const products: Product[] = [
     name: "Business Cards",
     category: "Brand Identity",
     type: "configurable",
+    description: "Fully customizable corporate grade business cards with premium finishes.",
     pricing: [
       {
         selections: {"quantity": "500", "printingSide": "Single Side", "lamination": "Glossy", "cornerCut": "Sharp"},
@@ -396,6 +398,7 @@ export const products: Product[] = [
     name: "Certificates",
     category: "Brand Identity",
     type: "configurable",
+    description: "Professional high-resolution certificate printing with glossy or matt finish.",
     pricing: [
       {
         selections: {"size": "A4", "quantity": "50", "lamination": "Glossy"},
@@ -477,6 +480,7 @@ export const products: Product[] = [
     name: "Letterhead",
     category: "Brand Identity",
     type: "configurable",
+    description: "Premium corporate letterheads printed on high quality paper with custom padding.",
     pricing: [
       {
         selections: {"size": "A4", "quantity": "100", "pad": "With Pad", "printingSide": "Single Side"},
@@ -597,6 +601,7 @@ export const products: Product[] = [
     name: "Bill Books",
     category: "Brand Identity",
     type: "configurable",
+    description: "Customized NCR bill books and cash vouchers with single or multi-color printing.",
     pricing: [
       {
         selections: {"size": "A4", "quantity": "5 Book", "finishingType": "Pad", "colorType": "Single Colour", "copyType": "Original Only"},
@@ -1036,6 +1041,7 @@ export const products: Product[] = [
     name: "Flyers/Pamphlets",
     category: "Marketing & Promotion",
     type: "configurable",
+    description: "Vibrant promotional flyers and pamphlets printed on crisp art paper.",
     pricing: [
       {
         selections: {"size": "A4", "quantity": "200", "printingSide": "Single Side"},
@@ -1149,6 +1155,7 @@ export const products: Product[] = [
     name: "Brochures",
     category: "Marketing & Promotion",
     type: "configurable",
+    description: "High-grade bi-fold and tri-fold corporate brochures with protective lamination.",
     pricing: [
       {
         selections: {"size": "A4", "quantity": "100", "folds": "Bi-Fold", "material": "Art-Paper 170 GSM", "lamination": "Glossy"},
@@ -1516,6 +1523,7 @@ export const products: Product[] = [
     name: "Sticker/Label",
     category: "Marketing & Promotion",
     type: "configurable",
+    description: "Custom die-cut stickers and product labels available in clear, metallic, or paper stocks.",
     pricing: [
       {
         selections: {"size": "Custom", "quantity": "50", "lamination": "Normal Sticker"},
@@ -1681,6 +1689,7 @@ export const products: Product[] = [
     name: "Roll Up Standee",
     category: "Marketing & Promotion",
     type: "configurable",
+    description: "Portable aluminum roll up standees with high resolution display canvas prints.",
     pricing: [
       {
         selections: {"size": "2.5 x 6"},
@@ -1722,6 +1731,7 @@ export const products: Product[] = [
     name: "Flex Banners",
     category: "Large Print",
     type: "configurable",
+    description: "Custom size flex banner printing with weather resistant heavy duty canvas fabric.",
     pricing: [
       {
         selections: {"type": "Normal Flex"},
@@ -1764,6 +1774,7 @@ export const products: Product[] = [
     name: "Sunpack/Pole Flex",
     category: "Large Print",
     type: "configurable",
+    description: "Durable sunpack sheets and pole flex banners ideal for outdoor brand advertising.",
     pricing: [
       {
         selections: {"size": "1 x 1.5", "quantity": "500"},
@@ -1931,6 +1942,7 @@ export const products: Product[] = [
     name: "Foam Board",
     category: "Large Print",
     type: "contact",
+    description: "Rigid lightweight foam board prints for indoor displays, exhibitions, and signage.",
     attributes: [],
     contactMessage:
       "For complete details & quotation, chat with us directly.",
@@ -1941,6 +1953,7 @@ export const products: Product[] = [
     name: "Digital Wall Poster",
     category: "Large Print",
     type: "contact",
+    description: "High-definition digital wall posters printed on premium anti-glare media.",
     attributes: [],
     contactMessage:
       "For complete details & quotation, chat with us directly.",
@@ -1950,6 +1963,7 @@ export const products: Product[] = [
     name: "Invitation Cards",
     category: "Invitation & Photo Frame",
     type: "contact",
+    description: "Elegant custom invitation cards for weddings, corporate events, and celebrations.",
     attributes: [],
     contactMessage:
       "For complete details & quotation, chat with us directly.",
@@ -1965,6 +1979,7 @@ export const products: Product[] = [
     name: "LED Clip-on Signage",
     category: "Invitation & Photo Frame",
     type: "configurable",
+    description: "Ultra-slim backlit LED clip-on signage frames with vibrant poster displays.",
     pricing: [
       {
         selections: {"size": "A5 (5.8 x 8.3)", "quantity": "Custom", "frameMaterial": "Black"},
@@ -2066,6 +2081,7 @@ export const products: Product[] = [
     name: "Photo Frames",
     category: "Invitation & Photo Frame",
     type: "configurable",
+    description: "Premium quality wooden and synthetic photo frames tailored in various sizes.",
     pricing: [
       {
         selections: {"size": "30 x 60", "quantity": "Custom", "frameType": "1 Inch"},
@@ -2361,6 +2377,7 @@ export const products: Product[] = [
     name: "Logo Design",
     category: "Designing Services",
     type: "configurable",
+    description: "Professional vector logo creation with full brand rights and source files.",
     pricing: [
       {
         selections: {"plan": "Standard (3 Concepts), (3 Revisions)"},
@@ -2395,6 +2412,7 @@ export const products: Product[] = [
     name: "Social Media Posters",
     category: "Social Media Design",
     type: "contact",
+    description: "Eye-catching custom social media post designs tailored for brand marketing.",
     attributes: [],
     contactMessage:
       "For complete details & quotation, chat with us directly.",

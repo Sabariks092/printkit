@@ -278,12 +278,15 @@ export function HeroSlider() {
           return (
             <div
               key={slide.id}
-              className="relative w-full shrink-0 min-w-full min-h-[580px] sm:min-h-[640px] lg:min-h-[700px] flex items-center py-12 lg:py-20 bg-cover bg-center bg-no-repeat transition-all"
+              className="relative w-full shrink-0 min-w-full min-h-[500px] sm:min-h-[600px] lg:min-h-[680px] flex items-center py-10 sm:py-16 lg:py-20 bg-cover bg-center bg-no-repeat transition-all"
               style={{ backgroundImage: `url(${slide.bgImage})` }}
             >
-              {/* Smooth Left-Side Dark Gradient Mask - Fades out completely by 50% to leave right image 100% bright & clear */}
+              {/* Mobile background dark overlay to guarantee 100% text readability */}
+              <div className="absolute inset-0 bg-[#0E0F08]/80 sm:hidden z-0 pointer-events-none" />
+
+              {/* Smooth Left-Side Dark Gradient Mask for Desktop */}
               <div
-                className="absolute inset-0 z-0 pointer-events-none"
+                className="absolute inset-0 z-0 pointer-events-none hidden sm:block"
                 style={{
                   background:
                     "linear-gradient(to right, #0E0F08 0%, #0E0F08 20%, rgba(14, 15, 8, 0.9) 32%, rgba(14, 15, 8, 0.4) 42%, rgba(14, 15, 8, 0) 50%)",
@@ -303,59 +306,30 @@ export function HeroSlider() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                   
                   {/* LEFT SIDE CONTENT - Product Specific Details */}
-                  <div className="lg:col-span-6 max-w-xl flex flex-col items-start gap-5">
+                  <div className="lg:col-span-6 max-w-xl flex flex-col items-center text-center sm:items-start sm:text-left gap-4 sm:gap-5">
                     
-                    {/* Top Row: Category Tag & Price Badge */}
-                    {/* <div className="flex flex-wrap items-center gap-3">
-                      <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#CC0000]/20 border border-[#CC0000]/40 text-[#FF4D4D] text-xs font-extrabold uppercase tracking-wider shadow-sm backdrop-blur-md">
-                        <Sparkles className="w-3.5 h-3.5 text-[#CC0000] animate-pulse" />
-                        {slide.categoryTag}
-                      </span>
-                      
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-slate-200 text-xs font-semibold backdrop-blur-md">
-                        <Tag className="w-3 h-3 text-[#CC0000]" />
-                        {slide.startingPrice}
-                      </span>
-
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-300 text-[11px] font-mono font-bold tracking-tight border border-emerald-500/30">
-                        ⚡ {slide.turnaround}
-                      </span>
-                    </div> */}
-
                     {/* Dynamic Animated Headline */}
                     <div className="space-y-1">
-                      <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] text-white">
+                      <h1 className="text-2xl sm:text-4xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] sm:leading-[1.1] text-white">
                         {slide.titleWhite}{" "}
-                        <span className="text-[#CC0000] drop-shadow-[0_2px_12px_rgba(204,0,0,0.4)]">
+                        <span className="text-[#CC0000] drop-shadow-[0_2px_12px_rgba(204,0,0,0.4)] block sm:inline mt-0.5 sm:mt-0">
                           {slide.titleRed}
                         </span>
                       </h1>
                     </div>
 
                     {/* Detailed Product Description */}
-                    <p className="text-sm sm:text-base lg:text-lg text-slate-300 max-w-2xl leading-relaxed font-normal">
+                    <p className="text-xs sm:text-base lg:text-lg text-slate-300 max-w-2xl leading-relaxed font-normal">
                       {slide.description}
                     </p>
 
-                    {/* Key Product Features Chips */}
-                    {/* <div className="flex flex-wrap gap-2 pt-1">
-                      {slide.features.map((feat, fIdx) => (
-                        <span
-                          key={fIdx}
-                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-200 bg-black/40 border border-white/15 px-3 py-1 rounded-lg backdrop-blur-md"
-                        >
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#CC0000]" />
-                          {feat}
-                        </span>
-                      ))}
-                    </div> */}
-
                     {/* CTA Buttons */}
-                    <div className="flex flex-wrap items-center gap-4 pt-3">
+                   <div className="hidden md:block">
+                     <div className="flex flex-col sm:flex-row items-center gap-2.5 sm:gap-4 pt-2 sm:pt-3 w-full sm:w-auto">
                       <Button
                         variant="primary"
                         size="lg"
-                        className="bg-[#CC0000] hover:bg-[#A80000] text-white font-bold rounded-[10px] px-8 py-3.5 shadow-xl shadow-[#CC0000]/30 transition-all hover:scale-105 active:scale-95 cursor-pointer flex items-center gap-2"
+                        className="bg-[#CC0000] hover:bg-[#A80000] text-white font-bold rounded-[10px] px-6 sm:px-8 py-3 sm:py-3.5 text-xs sm:text-sm shadow-xl shadow-[#CC0000]/30 transition-all hover:scale-105 active:scale-95 cursor-pointer flex items-center justify-center gap-2 w-full max-w-xs sm:w-auto"
                       >
                         <span>{slide.primaryCta}</span>
                         <ArrowRight className="w-4 h-4" />
@@ -363,26 +337,27 @@ export function HeroSlider() {
 
                       <button
                         type="button"
-                        className="h-12 px-7 text-sm font-semibold rounded-[10px] border border-white/30 bg-black/40 hover:bg-white/15 text-white backdrop-blur-md transition-all hover:border-white/60 active:scale-95 cursor-pointer flex items-center gap-2"
+                        className="h-10 sm:h-12 px-5 sm:px-7 text-xs sm:text-sm font-semibold rounded-[10px] border border-white/30 bg-black/40 hover:bg-white/15 text-white backdrop-blur-md transition-all hover:border-white/60 active:scale-95 cursor-pointer flex items-center justify-center gap-2 w-full max-w-xs sm:w-auto"
                       >
                         <span>{slide.secondaryCta}</span>
                       </button>
                     </div>
+                   </div>
 
                     {/* Trust Badges / Specifications Row */}
-                    <div className="grid grid-cols-3 gap-4 lg:gap-6 pt-6 border-t border-white/15 w-full max-w-2xl text-xs text-slate-300 mt-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 pt-4 sm:pt-6 border-t border-white/15 w-full max-w-2xl text-xs text-slate-300 mt-1 sm:mt-2">
                       {slide.badges.map((badge, bIdx) => {
                         const BadgeIcon = badge.icon;
                         return (
-                          <div key={bIdx} className="flex items-start gap-2.5">
-                            <div className="w-8 h-8 rounded-lg bg-[#CC0000]/20 border border-[#CC0000]/40 flex items-center justify-center text-[#CC0000] shrink-0 mt-0.5">
-                              <BadgeIcon className="w-4 h-4" />
+                          <div key={bIdx} className="flex items-center justify-center sm:justify-start sm:items-start gap-2.5">
+                            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#CC0000]/20 border border-[#CC0000]/40 flex items-center justify-center text-[#CC0000] shrink-0">
+                              <BadgeIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                             </div>
-                            <div>
+                            <div className="text-left">
                               <div className="font-bold text-white text-xs sm:text-sm leading-tight">
                                 {badge.title}
                               </div>
-                              <div className="text-slate-400 text-[11px] mt-0.5 leading-tight line-clamp-1">
+                              <div className="text-slate-400 text-[10px] sm:text-[11px] mt-0.5 leading-tight line-clamp-1">
                                 {badge.sub}
                               </div>
                             </div>
@@ -390,48 +365,28 @@ export function HeroSlider() {
                         );
                       })}
                     </div>
-                  </div>
 
-                  {/* RIGHT SIDE GRAPHIC CARD - Premium Floating Spec Card */}
-                  {/* <div className="lg:col-span-5 hidden lg:flex justify-end">
-                    <div className="relative w-full max-w-md bg-[#0E0F08]/80 border border-white/20 rounded-[20px] p-6 shadow-2xl backdrop-blur-xl group transition-all hover:border-[#CC0000]/50">
-                      <div className="flex items-center justify-between border-b border-white/15 pb-4">
-                        <div className="flex items-center gap-2">
-                          <span className="w-2.5 h-2.5 rounded-full bg-[#CC0000] animate-pulse" />
-                          <span className="font-mono text-xs text-slate-300 font-bold tracking-wider uppercase">
-                            SPEC {slide.specCode}
-                          </span>
-                        </div>
-                        <span className="text-[11px] font-mono font-bold bg-white/10 text-white px-2.5 py-1 rounded-full border border-white/15">
-                          OFFICIAL PRINTKIT
-                        </span>
-                      </div>
+                       {/*Mobile - CTA Buttons */}
+                   <div className="md:hidden block">
+                     <div className="flex flex-col sm:flex-row items-center gap-2.5 sm:gap-4 pt-2 sm:pt-3 w-full sm:w-auto">
+                      <Button
+                        variant="primary"
+                        size="lg"
+                        className="bg-[#CC0000] hover:bg-[#A80000] text-white font-bold rounded-[10px] px-6 sm:px-8 py-3 sm:py-3.5 text-xs sm:text-sm shadow-xl shadow-[#CC0000]/30 transition-all hover:scale-105 active:scale-95 cursor-pointer flex items-center justify-center gap-2 w-full max-w-xs sm:w-auto"
+                      >
+                        <span>{slide.primaryCta}</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </Button>
 
-                      <div className="py-6 space-y-4">
-                        <div className="text-xs uppercase tracking-widest text-[#CC0000] font-bold">
-                          Featured Product Focus
-                        </div>
-                        <div className="text-2xl font-extrabold text-white tracking-tight leading-snug">
-                          {slide.titleWhite} {slide.titleRed}
-                        </div>
-                        <p className="text-xs text-slate-400 leading-relaxed font-normal">
-                          Engineered using state-of-the-art Japanese offset press technology and automated finishing for zero-defect output.
-                        </p>
-
-                        <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between text-xs">
-                          <span className="text-slate-300 font-medium">Standard Spec Turnaround:</span>
-                          <span className="text-white font-bold font-mono">{slide.turnaround}</span>
-                        </div>
-                      </div>
-
-                      <div className="pt-4 border-t border-white/15 flex items-center justify-between text-xs text-slate-300">
-                        <span className="text-slate-400">Slide {slide.id} of {totalSlides}</span>
-                        <span className="text-[#CC0000] font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform cursor-pointer">
-                          Inspect Technical Specs <ArrowRight className="w-3.5 h-3.5" />
-                        </span>
-                      </div>
+                      <button
+                        type="button"
+                        className="h-10 sm:h-12 px-5 sm:px-7 text-xs sm:text-sm font-semibold rounded-[10px] border border-white/30 bg-black/40 hover:bg-white/15 text-white backdrop-blur-md transition-all hover:border-white/60 active:scale-95 cursor-pointer flex items-center justify-center gap-2 w-full max-w-xs sm:w-auto"
+                      >
+                        <span>{slide.secondaryCta}</span>
+                      </button>
                     </div>
-                  </div> */}
+                   </div>
+                  </div>
 
                 </div>
               </div>
@@ -446,18 +401,18 @@ export function HeroSlider() {
       <button
         onClick={prevSlide}
         aria-label="Previous Slide"
-        className="absolute left-3 lg:left-6 top-1/2 -translate-y-1/2 w-11 h-11 lg:w-12 lg:h-12 rounded-full bg-[#CC0000] hover:bg-[#A80000] text-white flex items-center justify-center shadow-2xl transition-all hover:scale-110 active:scale-95 cursor-pointer z-30 border border-white/20"
+        className="absolute left-2 sm:left-4 lg:left-6 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-11 sm:h-11 lg:w-12 lg:h-12 rounded-full bg-[#CC0000]/80 hover:bg-[#CC0000] text-white hidden sm:flex items-center justify-center shadow-2xl transition-all hover:scale-110 active:scale-95 cursor-pointer z-30 border border-white/20"
       >
-        <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7" />
+        <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6" />
       </button>
 
       {/* Right Red Arrow Button */}
       <button
         onClick={nextSlide}
         aria-label="Next Slide"
-        className="absolute right-3 lg:right-6 top-1/2 -translate-y-1/2 w-11 h-11 lg:w-12 lg:h-12 rounded-full bg-[#CC0000] hover:bg-[#A80000] text-white flex items-center justify-center shadow-2xl transition-all hover:scale-110 active:scale-95 cursor-pointer z-30 border border-white/20"
+        className="absolute right-2 sm:right-4 lg:right-6 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-11 sm:h-11 lg:w-12 lg:h-12 rounded-full bg-[#CC0000]/80 hover:bg-[#CC0000] text-white hidden sm:flex items-center justify-center shadow-2xl transition-all hover:scale-110 active:scale-95 cursor-pointer z-30 border border-white/20"
       >
-        <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7" />
+        <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6" />
       </button>
 
       {/* Bottom Control Bar: Quick Product Tabs + Play/Pause + Dots */}

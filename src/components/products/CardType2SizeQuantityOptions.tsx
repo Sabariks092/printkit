@@ -30,6 +30,36 @@ export function CardType2SizeQuantityOptions({ product, onSelectProduct }: CardT
     return () => clearTimeout(timer);
   }, [priceResult.formattedPrice]);
 
+  // Listen to custom highlight event (e.g. dispatched by header search selection)
+  useEffect(() => {
+    const triggerHighlight = () => {
+      setIsGlittering(true);
+      if (cardRef.current) {
+        const rect = cardRef.current.getBoundingClientRect();
+        const offsetTop = rect.top + window.pageYOffset - 110;
+        window.scrollTo({
+          top: Math.max(0, offsetTop),
+          behavior: "smooth",
+        });
+      }
+      setTimeout(() => setIsGlittering(false), 1400);
+    };
+
+    if ((window as any).__targetHighlightProductId === product.id) {
+      (window as any).__targetHighlightProductId = null;
+      setTimeout(triggerHighlight, 50);
+    }
+
+    const handleHighlight = (e: Event) => {
+      const customEvt = e as CustomEvent<{ productId: string }>;
+      if (customEvt.detail?.productId === product.id) {
+        triggerHighlight();
+      }
+    };
+    window.addEventListener("highlight-product-card", handleHighlight);
+    return () => window.removeEventListener("highlight-product-card", handleHighlight);
+  }, [product.id]);
+
   const handleOptionChange = (key: string, value: string) => {
     setSelections((prev) => ({ ...prev, [key]: value }));
   };
@@ -95,13 +125,16 @@ export function CardType2SizeQuantityOptions({ product, onSelectProduct }: CardT
             <h3 className="text-xl font-extrabold text-[#0E0F08] leading-tight mt-1">
               {product.name}
             </h3>
+            <p className="text-xs text-[#555750] font-medium leading-relaxed mt-1">
+              {product.description || `Fully customizable corporate grade ${product.name.toLowerCase()} with premium finishes.`}
+            </p>
           </div>
 
           {/* 2 Column Select Inputs */}
           <div className="grid grid-cols-2 gap-3 pt-2 border-t border-neutral-100">
             {product.attributes.map((attr) => (
               <div key={attr.key} className="space-y-1">
-                <label className="text-[11px] font-bold text-[#0E0F08] uppercase tracking-wider flex items-center gap-1.5 truncate">
+                <label className="text-[13px] font-semibold text-[#0E0F08] capitalize tracking-wider flex items-center gap-1.5 truncate">
                   <FontAwesomeIcon icon={getAttributeFaIcon(attr.key, attr.name)} className="text-[#CC0000] w-3 h-3 shrink-0" />
                   <span className="truncate">{attr.name}</span>
                 </label>
@@ -110,10 +143,10 @@ export function CardType2SizeQuantityOptions({ product, onSelectProduct }: CardT
                   <select
                     value={selections[attr.key] || ""}
                     onChange={(e) => handleOptionChange(attr.key, e.target.value)}
-                    className="w-full pl-3.5 pr-8 py-2 text-xs font-bold text-[#0E0F08] bg-white border border-[#E3E3DE] rounded-full focus:border-[#CC0000] focus:ring-1 focus:ring-[#CC0000] active:border-[#CC0000] outline-none transition-colors cursor-pointer appearance-none truncate"
+                    className="w-full pl-3.5 pr-8 py-2 text-[13px] font-normal text-[#0E0F08] bg-white border border-[#E3E3DE] rounded-full focus:border-[#CC0000] focus:ring-1 focus:ring-[#CC0000] active:border-[#CC0000] outline-none transition-colors cursor-pointer appearance-none truncate"
                   >
                     {attr.options?.map((option) => (
-                      <option key={option} value={option}>
+                      <option key={option} value={option} className="font-normal text-[13px]">
                         {option}
                       </option>
                     ))}
