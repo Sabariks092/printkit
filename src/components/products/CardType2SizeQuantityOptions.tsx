@@ -56,6 +56,7 @@ export function CardType2SizeQuantityOptions({ product, onSelectProduct }: CardT
   return (
     <>
       <div
+        id={`product-card-${product.id}`}
         ref={cardRef}
         className={`group relative flex flex-col justify-between bg-white rounded-2xl border border-neutral-200/80 shadow-sm hover:shadow-xl hover:border-[#CC0000]/40 transition-all duration-300 overflow-hidden font-sans ${
           isGlittering ? "animate-card-glitter" : ""

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { products, categories, Product } from "../../data/products";
 import { ProductCard, getProductCardType } from "./ProductCard";
 import { QuoteModal } from "./QuoteModal";
@@ -7,6 +7,17 @@ import { Search, Sparkles, Filter, Grid, SlidersHorizontal } from "lucide-react"
 export function ProductGrid() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
+
+  // Listen for show-all-products event dispatched by search bar or product row
+  useEffect(() => {
+    const handleShowAll = () => {
+      setSelectedCategory("all");
+      setSearchQuery("");
+    };
+
+    window.addEventListener("show-all-products", handleShowAll);
+    return () => window.removeEventListener("show-all-products", handleShowAll);
+  }, []);
 
   // Modal state for quotes and orders
   const [activeModalProduct, setActiveModalProduct] = useState<Product | null>(null);
@@ -52,7 +63,7 @@ export function ProductGrid() {
   };
 
   return (
-    <section id="products" className="w-full bg-[#F7F7F5] py-12 lg:py-20 font-sans border-b border-[#E3E3DE]">
+    <section id="products" className="w-full bg-[#F7F7F5] pt-14 pb-12 lg:pt-20 lg:pb-20 font-sans border-b border-[#E3E3DE]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-10">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E3E3DE] pb-6">

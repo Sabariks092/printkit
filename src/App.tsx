@@ -2,17 +2,17 @@ import { Header } from "@/components/navigation/header";
 import { Footer } from "@/components/navigation/footer";
 import { HeroSlider } from "@/components/home/HeroSlider";
 import { Products } from "@/components/home/Products";
-import { ProductCategoryRow } from "@/components/home/ProductCategoryRow";
 import { ProductTitleRow } from "@/components/home/ProductTitleRow";
 import { ProductGrid } from "@/components/products/ProductGrid";
-import { Button } from "@/components/ui/button";
+import { GoogleReviews } from "@/components/home/GoogleReviews";
+import { AboutUs } from "@/components/home/AboutUs";
+import { ContactUs } from "@/components/home/ContactUs";
+import { CustomQuoteCTA } from "@/components/home/CustomQuoteCTA";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 
 /* Lucide React Icons */
 import {
   Printer,
-  Sparkles,
   PackageCheck,
   Palette,
   Ruler,
@@ -25,28 +25,24 @@ export default function App() {
       {/* 1. Navigation Header */}
       <Header />
 
-      {/* 2. Hero Slider with Overlapping Products Carousel */}
-      <div className="relative w-full bg-white">
-        <HeroSlider />
+      {/* 2. Hero Slider (Dark Carousel Section) */}
+      <HeroSlider />
 
-        {/* Floating Overlap Products Row (Half over Hero bottom, Half extending out below) */}
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-14 sm:-mt-16 lg:-mt-12 z-30 ">
+      {/* 3. Floating Products Bar (Half in Carousel section above, Half in Pricing section below) */}
+      <div className="relative w-full bg-[#F7F7F5]">
+        <div className="relative max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 -mt-9 sm:-mt-10 lg:-mt-11 z-30">
           <Products />
         </div>
+
+        {/* 4. Core Dynamic Product Cards Grid (6 Card Types System) - id="products" */}
+        <ProductGrid />
       </div>
 
-
-      {/* 4. Core Dynamic Product Cards Grid (6 Card Types System) */}
-      <ProductGrid />
-
-      
-      {/* 3. Infinite Product Title Marquee Banner */}
+      {/* 5. Infinite Product Title Marquee Banner */}
       <ProductTitleRow variant="light" speedDuration={40} />
 
-
-
-      {/* 4. Production Capabilities Grid */}
-      <section id="services" className="w-full bg-[#F7F7F5] py-16 lg:py-24 font-sans">
+      {/* 6. Production Capabilities Grid - id="services" */}
+      <section id="services" className="w-full bg-[#F7F7F5] py-16 lg:py-24 font-sans border-b border-[#E3E3DE]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-14">
             <h2 className="text-xs font-bold uppercase tracking-widest text-[#CC0000] mb-2">
@@ -128,37 +124,19 @@ export default function App() {
         </div>
       </section>
 
-      
-      {/* 5. Production Quality Banner */}
-      <section className="w-full bg-white py-16 lg:py-20 border-b border-[#E3E3DE] font-sans">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-[16px] bg-[#F7F7F5] border border-[#E3E3DE] p-8 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-8 space-y-4">
-              <Badge variant="brand" className="text-xs uppercase tracking-widest py-1 px-3">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>2400 DPI Precision Proofing</span>
-              </Badge>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0E0F08]">
-                Need Custom Dimensions or Urgent Same-Day Printing?
-              </h3>
-              <p className="text-sm text-[#555750] leading-relaxed">
-                Our print engineering team handles complex die-cuts, custom Pantone spot colors, and bulk corporate orders with guaranteed turnaround times.
-              </p>
-            </div>
-            <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-end">
-              <Button variant="primary" size="lg" className="w-full font-bold">
-                <Printer className="w-4 h-4" />
-                <span>Request Custom Quote</span>
-              </Button>
-              <Button variant="outline" size="lg" className="w-full font-bold">
-                <span>Download Price Catalog</span>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* 7. Google Reviews Section - id="reviews" */}
+      <GoogleReviews />
 
-      {/* 6. Footer */}
+      {/* 8. About Us Section - id="about" */}
+      <AboutUs />
+
+      {/* 9. Premium Custom Quote CTA Banner Section */}
+      <CustomQuoteCTA />
+
+      {/* 10. Contact Us Section - id="contact" */}
+      <ContactUs />
+
+      {/* 11. Footer */}
       <Footer />
     </div>
   );

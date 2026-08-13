@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { getProductImage } from "../../utils/productImages";
+import { scrollToProductCard } from "../../utils/scrollHelper";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export interface CarouselProductItem {
@@ -30,7 +31,7 @@ export const ALL_PRODUCTS_LIST: CarouselProductItem[] = [
 
 export function Products() {
   const [startIndex, setStartIndex] = useState(0);
-  const itemsPerPage = 6;
+  const itemsPerPage = 7;
 
   const handleNext = () => {
     setStartIndex((prev) => (prev + itemsPerPage) % ALL_PRODUCTS_LIST.length);
@@ -45,14 +46,11 @@ export function Products() {
   });
 
   const handleItemClick = (id: string) => {
-    const el = document.getElementById("products");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
+    scrollToProductCard(id);
   };
 
   return (
-    <div className="relative w-full bg-white rounded-[28px] p-3.5 sm:p-4 shadow-xl border border-neutral-200/80 font-sans flex items-center justify-between gap-3">
+    <div className="relative w-full bg-white rounded p-3.5 sm:p-4 shadow-xl border border-neutral-200/80 font-sans flex items-center justify-between gap-3">
       {/* Left Navigation Chevron Button */}
       <button
         type="button"
@@ -64,7 +62,7 @@ export function Products() {
       </button>
 
       {/* 6 Products Row (Matching Screenshot UI) */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-4 flex-1 items-center">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2  flex-1 items-center">
         {visibleItems.map((item) => (
           <div
             key={`${item.id}-${startIndex}`}
